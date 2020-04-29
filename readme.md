@@ -12,7 +12,7 @@ And nothing more. No estimate time. No queue information. No current status. USC
 
 The impact of coronavirus significantly slowed down the process. Fortunately, USCIS issues receipt numbers in chronological order, and they process their cases in a first-come-first serve order. That means if we check other people's case status, we will be able to get an estimate time of case decision:
 
-- If a huge proportion of people before (and possibly after) me have their OPTs approved, I should have mine processed soon.
+- If a huge proportion of people before (and possibly after) me have their work authorization approved, I should have mine processed soon.
 
 - However, if the people who submitted around my date are stil waiting for their approval, I can expect to wait a long time.
 
