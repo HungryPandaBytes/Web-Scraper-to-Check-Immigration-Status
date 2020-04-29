@@ -15,9 +15,9 @@ const myReceipt = "msc2090502816"
 const EADreceipts = [];
 
 // check a bulk of cases based on receipt confirmation number
-for (let i = 0; i < 1000; i++){
+for (let i = 0; i < 10000; i++){
     const receiptPrefix = 'msc'
-    const startingNum = '2090501668'
+    const startingNum = '2090460000'
     const nextNum = "" + (parseInt(startingNum) + i)
     EADreceipts.push(receiptPrefix + nextNum)
 }
@@ -37,17 +37,18 @@ EADreceipts.forEach((receipt,i) => {
               "sec-fetch-user": "?1",
               "upgrade-insecure-requests": "1"
             },
-            "referrer": "https://egov.uscis.gov/casestatus/mycasestatus.do;jsessionid=0A86F6CB64D3D75487769276E21B5A53",
+            "referrer": "https://egov.uscis.gov/casestatus/mycasestatus.do",
             "referrerPolicy": "no-referrer-when-downgrade",
             "body": `changeLocale=&completedActionsCurrentPage=0&upcomingActionsCurrentPage=0&appReceiptNum=${receipt}&caseStatusSearchBtn=CHECK+STATUS`,
             "method": "POST",
             "mode": "cors"
-          }) .then(res => res.text())
+          }).then(res => res.text())
           .then(body => {
-              // console.log(body)
+            //   console.log(body)
               const uscis = HTMLParser.parse(body)
               const caseStatus = uscis.querySelector('.rows').childNodes[1].rawText
               const caseDetails = uscis.querySelector('.rows').childNodes[3].rawText
+            //   console.log({uscis},{caseStatus},{caseDetails} )
               const forms = ["Form I-485", "Form I-765","Form I-131","Form I-130", "Post Office delivered your new card"]
               const timeStamp = new Date();
               let formNumber;
@@ -55,7 +56,6 @@ EADreceipts.forEach((receipt,i) => {
               function parseFormNumber(caseDetails, forms){
                   forms.forEach(form => {
                     if (caseDetails.includes(form)){
-                        console.log('its finding a match')
                         formNumber = form;
                         return formNumber  
                     } 
@@ -77,9 +77,10 @@ EADreceipts.forEach((receipt,i) => {
               }]
               return scrapedResult
           }).then(scrapedResult => {
-          console.log(scrapedResult, `writing ${i+1} results to csv at ${(i+1) * 6} second`)
+          console.log(scrapedResult, `writing ${i+1} results to csv at ${((i+1) * 6 / 60 /60).toFixed(2)} hours`)
           const csv = new ObjectsToCsv(scrapedResult)
-          csv.toDisk('./ead.csv', { append: true })
+          csv.toDisk('./uscis_small_laptop.csv', { append: true })
+        //   csv.toDisk('./uscis_large_laptop.csv', { append: true })
           })
       }, i * 6000);
 })
