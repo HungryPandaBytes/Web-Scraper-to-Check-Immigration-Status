@@ -1,20 +1,21 @@
-ULTIMATE GOAL: get a better picture of the processing time of my ead card 
+# USCIS Case Status Checker
+
+### I'm waiting to get work authorization from US Citizenship and Immigration Services (USCIS). When one application is received by the USCIS, they issue a receipt number. Using this receipt number to check one’s progress (at https://egov.uscis.gov/casestatus/mycasestatus.do) is highly unsatisfying. The application usually takes up to 3 - 5 months to process. Until the work authorization is approved, people ususally get these types of responses: 
+
+On November 16, 2017, we received your Form I-765, Application for Employment Authorization , Receipt Number YSC1890044628, and sent you the receipt notice that describes how we will process your case. Please follow the instructions in the notice. If you do not receive your receipt notice by December 16, 2017, please call Customer Service at 1-800-375-5283. If you move, go to www.uscis.gov/addresschange to give us your new mailing address.
+
+### And nothing more. No estimate time. No queue information. No current status. USCIS does a really bad job of keeping one updated on the progress of a case and in general how far along they are going with the entire year’s batch of students.
 
 
-1. how to quickly parse a string to find if it's a form I'm interested in 
-    SOLUTION: 'a nice string'.includes('nice', 2) //true
-2. create a cron job to parse through many requests per day 
-3. make a chart using material ui and chartjs 
-4. notify me when it's getting closer to my receipt date that apps are processing 
+## The impact of current administration and coronavirus significantly slowed down the process. 
 
+And nothing more. No estimate time. No queue information. No current status. USCIS does a really bad job of keeping one updated on the progress of a case and in general how far along they are going with the entire year’s batch of students.
 
-Forms I'm interested in: 
+## Predicting decision time
 
-Form I-765: Employment 
-Form I-131: Travel Doc
-Form I-485: Application to Register Permanent Residence
-Form I-130: Petition for Alien Relative
+Fortunately, USCIS issues receipt numbers in chronological order, and they process their cases in a first-come-first serve order. That means if we check other people's case status, we will be able to get an estimate time of case decision:
 
-Messages I'm interested in: 
-"the Post Office delivered your new card"
-"we mailed your new card for your Form I-485"
+### If a huge proportion of people before (and possibly after) me have their OPTs approved, I should have mine processed soon.
+However, if the people who submitted around my date are stil waiting for their approval, I can expect to wait a long time.
+
+However, doing so manually at https://egov.uscis.gov/casestatus/mycasestatus.do is a slow and tiring process. Instead, I can write a script to check the website for the 10,000 or so cases before and after my own number.
