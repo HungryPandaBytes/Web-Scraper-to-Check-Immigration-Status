@@ -14,15 +14,18 @@ const myReceipt = "msc2090502816"
 
 const EADreceipts = [];
 
+// small laptop run 2090460000 - 2090470000 (10K) 2090500000 - 2090510000 (10K)
+// large laptop runs 2090460000 - 2090500000 (40K)
+
 // check a bulk of cases based on receipt confirmation number
-for (let i = 0; i < 10000; i++){
+for (let i = 0; i < 20000; i++){
     const receiptPrefix = 'msc'
     const startingNum = '2090460000'
     const nextNum = "" + (parseInt(startingNum) + i)
     EADreceipts.push(receiptPrefix + nextNum)
 }
 
-// fetch data from USCIS official website every 1 second
+// fetch data from USCIS official website every 4 second
 EADreceipts.forEach((receipt,i) => {
     setTimeout(() => {
         fetch("https://egov.uscis.gov/casestatus/mycasestatus.do", {
@@ -77,12 +80,12 @@ EADreceipts.forEach((receipt,i) => {
               }]
               return scrapedResult
           }).then(scrapedResult => {
-          console.log(scrapedResult, `writing ${i+1} results to csv at ${((i+1) * 6 / 60 /60).toFixed(2)} hours`)
+          console.log(scrapedResult, `writing ${i+1} results to csv at ${((i+1) * 4 / 60 /60).toFixed(2)} hours`)
           const csv = new ObjectsToCsv(scrapedResult)
-          csv.toDisk('./uscis_small_laptop.csv', { append: true })
-        //   csv.toDisk('./uscis_large_laptop.csv', { append: true })
+          // csv.toDisk('./uscis_small_laptop.csv', { append: true })
+          csv.toDisk('./uscis_large_laptop.csv', { append: true })
           })
-      }, i * 6000);
+      }, i * 4000);
 })
 
 

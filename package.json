@@ -11,6 +11,7 @@
   "description": "",
   "dependencies": {
     "bluebird": "^3.7.2",
+    "express": "^4.17.1",
     "node-fetch": "^2.6.0",
     "node-html-parser": "^1.2.16",
     "nodemon": "^2.0.3",
